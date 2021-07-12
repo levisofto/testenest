@@ -1,5 +1,6 @@
 import { Consumer } from 'sqs-consumer';
 import * as AWS from 'aws-sdk';
+import Elastic from './elastic';
 
 const config = new AWS.Config({
   region: 'eu-east-1',
@@ -8,9 +9,25 @@ const config = new AWS.Config({
 });
 const queue = Consumer.create({
   region: 'eu-east-1',
-  queueUrl: process.env.AWS_QUEUE_URL,
+  queueUrl: process.env.AWS_SQS_URL,
   handleMessage: async (message) => {
-    console.log(message);
+    Elastic.index({
+      index: 'teste_index',
+      body: { message: message.Body }
+    }, (err, result) => {
+      console.log(result)
+    })
+
+    //   Elastic.search({
+    //   index: 'teste_index',
+    //   body: {
+    //     query: {
+    //       match: { message: 'teste' }
+    //     }
+    //   }
+    // }, (err, result) => {
+    //   console.log(result.body)
+    // })
   },
   sqs: new AWS.SQS(config),
 });
