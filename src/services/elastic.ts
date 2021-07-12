@@ -1,7 +1,8 @@
 import { Client } from '@elastic/elasticsearch';
 import * as AWS from 'aws-sdk';
-const createAwsElasticsearchConnector = require('aws-elasticsearch-connector')
-// import createAwsElasticsearchConnector from 'aws-elasticsearch-connector';
+const createAwsElasticsearchConnector = require('aws-elasticsearch-connector');
+
+require('dotenv').config();
 
 const awsConfig = new AWS.Config({
   region: 'us-east-1',
@@ -11,7 +12,7 @@ const awsConfig = new AWS.Config({
 
 const Elastic = new Client({
   ...createAwsElasticsearchConnector(awsConfig),
-  node: process.env.AWS_ELASTIC_URL
+  node: process.env.AWS_ELASTIC_URL,
 });
 
 export default Elastic;

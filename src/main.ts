@@ -9,18 +9,6 @@ async function bootstrap() {
   Queue.start();
   await app.listen(3000);
 
-  const teste = await Elastic.search({
-    index: 'teste_index',
-    body: {
-      query: {
-        match: { message: 'teste' }
-      }
-    }
-  });
-
-  console.log(JSON.stringify(teste.body))
-
-
   // Elastic.indices.create({
   //   index: 'teste_index',
   //   body: {
