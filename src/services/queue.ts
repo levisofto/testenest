@@ -17,17 +17,6 @@ const queue = Consumer.create({
     }, (err, result) => {
       console.log(result)
     })
-
-    //   Elastic.search({
-    //   index: 'teste_index',
-    //   body: {
-    //     query: {
-    //       match: { message: 'teste' }
-    //     }
-    //   }
-    // }, (err, result) => {
-    //   console.log(result.body)
-    // })
   },
   sqs: new AWS.SQS(config),
 });
